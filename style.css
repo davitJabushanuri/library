@@ -103,3 +103,33 @@ input[type="submit"] {
 .show-hide {
     visibility: visible;
 }
+
+.container {
+    display: flex;
+}
+
+.book-container {
+    display: flex;
+    gap: 1em;
+}
+
+.book-style {
+    background-color: rgb(172, 166, 166);
+    border-radius: 4px;
+    width: 200px;
+    height: 300px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1em;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
