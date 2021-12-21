@@ -12,31 +12,35 @@
 
 <body>
 	<h1>Library</h1>
+	<form class="book">
+		<div class="book-title-container">
+			<label for="book-title">Book Title</label>
+			<input type="text" id="book-title">
+		</div>
+		<div class="book-author-container">
+			<label for="book-author">Author</label>
+			<input type="text" id="book-author">
+		</div>
+		<div class="book-pages-container">
+			<label for="book-pages">How many pages?</label>
+			<input type="number" id="book-pages">
+		</div>
+		<div id="read-container">
+			<input type="checkbox" id="read">
+			<label for="read">Have you read it?</label>
+		</div>
+		<input id="submit" type="submit" value="Add to your library">
+	</form>
+
 	<div class="container">
 		<div class="add-book">
 			<button id="add-book-button">ADD BOOK</button>
-			<form class="book">
-				<div class="book-title-container">
-					<label for="book-title">Book Title</label>
-					<input type="text" id="book-title">
-				</div>
-				<div class="book-author-container">
-					<label for="book-author">Author</label>
-					<input type="text" id="book-author">
-				</div>
-				<div class="book-pages-container">
-					<label for="book-pages">How many pages?</label>
-					<input type="number" id="book-pages">
-				</div>
-				<div id="read-container">
-					<input type="checkbox" id="read">
-					<label for="read">Have you read it?</label>
-				</div>
-				<input type="submit" value="Add to your library">
-			</form>
+
 		</div>
 		<div class="book-container"></div>
 	</div>
+
+
 </body>
 
 </html>

@@ -23,7 +23,7 @@ body {
 #add-book-button {
     border-radius: 0.2em;
     border: none;
-    background: cadetblue;
+    background: rgb(84, 105, 212);
     padding: 2em 4em;
     color: #f2f2f2;
     font-size: 1em;
@@ -32,6 +32,11 @@ body {
 }
 
 .book {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
     display: flex;
     visibility: hidden;
     flex-direction: column;
@@ -110,6 +115,7 @@ input[type="submit"] {
 
 .book-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 1em;
 }
 
