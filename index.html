@@ -11,7 +11,6 @@
 </head>
 
 <body>
-	<h1>Library</h1>
 	<form class="book">
 		<div class="book-title-container">
 			<label for="book-title">Book Title</label>
@@ -26,16 +25,16 @@
 			<input type="number" id="book-pages">
 		</div>
 		<div id="read-container">
-			<input type="checkbox" id="read">
+			<input type="checkbox" name='read' id="read">
 			<label for="read">Have you read it?</label>
 		</div>
 		<input id="submit" type="submit" value="Add to your library">
 	</form>
 
 	<div class="container">
+		<h1>All your books in one place</h1>
 		<div class="add-book">
 			<button id="add-book-button">ADD BOOK</button>
-
 		</div>
 		<div class="book-container"></div>
 	</div>

@@ -5,19 +5,9 @@ const pagesInput = document.querySelector('#book-pages')
 const submitButton = document.querySelector('#submit')
 const readCheckbox = document.querySelector('#read')
 const bookContainer = document.querySelector('.book-container')
-
-const myLibrary = [
-	{title: 'Hobbit',
-	author: 'Tolkien',
-	pages: 200,
-	read: true	
-	},
-	{title: 'Harry Potter',
-	author: 'Rawlings',
-	pages: 300,
-	read: false	
-	}
-];
+const deleteButtons = document.querySelectorAll('.delete-button')
+console.log(deleteButtons);
+const myLibrary = [];
 
 function Book (title, author, pages, read) {
 	this.title = title
@@ -30,9 +20,13 @@ const addBookToLibrary = () => {
 let title = titleInput.value
 let author = authorInput.value
 let pages = pagesInput.value
-let read = readCheckbox.value
+let read = getReadStatus()
 let newBook = new Book(title, author, pages, read)
 myLibrary.push(newBook)
+}
+
+const getReadStatus = () =>{
+	return readCheckbox.checked ? 'read': 'Not read yet'
 }
 
 
@@ -47,8 +41,8 @@ myLibrary.forEach(book => {
 		<li>${book.pages}</li>
 		<li>${book.read}</li>
 	</ul>
-	<button>Read</button>
-	<button>Delete</button>`
+	<button class='read-button'>Read</button>
+	<button class='delete-button'>Delete</button>`
 	books.classList.add('book-style')
 	
 	
@@ -58,22 +52,31 @@ myLibrary.forEach(book => {
 }
 
 const clearForm = () => {
-	title.input.value = ''
+	titleInput.value = ''
 	authorInput.value = ''
 	pagesInput.value = ''
 }
 
+const handleDelete = (e) => {
+	updateLibrary()
+}
 
-const addButton = document.getElementById('add-book-button')
-addButton.addEventListener('click', ()=>{
+const handleVisibility  = () => {
 	let x = document.querySelector('form')
 	x.classList.toggle('show-hide')
-})
+}
+
+
+const addButton = document.getElementById('add-book-button')
+addButton.addEventListener('click', handleVisibility)
 
 submitButton.addEventListener('click', (e) => {
 	e.preventDefault()
 	addBookToLibrary()
 	updateLibrary()
 	clearForm()
-	console.log(myLibrary);
+	handleVisibility()
 })
+
+
+
