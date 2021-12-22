@@ -9,9 +9,6 @@ const cancelButton = document.querySelector('#cancel')
 const readButton = document.querySelectorAll('.read-button')
 const addButton = document.getElementById('add-book-button')
 
-console.log(readButton);
-
-
 let myLibrary = [];
 
 const saveOnLocalStorage = () => {
@@ -42,6 +39,16 @@ const getReadStatus = () =>{
 	return readCheckbox.checked ? 'read': 'Not read yet'
 }
 
+const handleDelete = () => {
+	let deleteButton = document.createElement('button')
+	deleteButton.textContent = 'Delete'
+	deleteButton.classList.add('delete-button')
+	deleteButton.addEventListener('click', (e) =>{
+		console.log(e.target);
+	})
+	return deleteButton
+}
+
 
 const updateLibrary = () => {
 bookContainer.innerHTML = ''
@@ -53,13 +60,12 @@ myLibrary.forEach(book => {
 		<li>${book.author}</li>
 		<li>${book.pages}</li>
 	</ul>
-	<button class='read-button'>${book.read}</button>
-	<button class='delete-button'>Delete</button>`
+	<button class='read-button'>${book.read}</button>`
 	books.classList.add('book-style')
 	
-	
+	books.appendChild(handleDelete())
 	bookContainer.appendChild(books)
-
+	handleDelete()
 })
 	saveOnLocalStorage()
 }
@@ -70,10 +76,6 @@ const clearForm = () => {
 	titleInput.value = ''
 	authorInput.value = ''
 	pagesInput.value = ''
-}
-
-const handleDelete = (e) => {
-	updateLibrary()
 }
 
 const handleVisibility  = () => {
