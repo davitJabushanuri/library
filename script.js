@@ -5,9 +5,22 @@ const pagesInput = document.querySelector('#book-pages')
 const submitButton = document.querySelector('#submit')
 const readCheckbox = document.querySelector('#read')
 const bookContainer = document.querySelector('.book-container')
-const deleteButtons = document.querySelectorAll('.delete-button')
-console.log(deleteButtons);
-const myLibrary = [];
+const cancelButton = document.querySelector('#cancel')
+const readButton = document.querySelectorAll('.read-button')
+const addButton = document.getElementById('add-book-button')
+
+console.log(readButton);
+
+
+let myLibrary = [];
+
+const saveOnLocalStorage = () => {
+	localStorage.setItem('library', JSON.stringify(myLibrary))
+}
+
+const retrieveFromLocalStorage = () => {
+	myLibrary = JSON.parse(localStorage.getItem('library'))
+}
 
 function Book (title, author, pages, read) {
 	this.title = title
@@ -39,9 +52,8 @@ myLibrary.forEach(book => {
 		<li>${book.title}</li>
 		<li>${book.author}</li>
 		<li>${book.pages}</li>
-		<li>${book.read}</li>
 	</ul>
-	<button class='read-button'>Read</button>
+	<button class='read-button'>${book.read}</button>
 	<button class='delete-button'>Delete</button>`
 	books.classList.add('book-style')
 	
@@ -49,7 +61,10 @@ myLibrary.forEach(book => {
 	bookContainer.appendChild(books)
 
 })
+	saveOnLocalStorage()
 }
+
+
 
 const clearForm = () => {
 	titleInput.value = ''
@@ -67,16 +82,30 @@ const handleVisibility  = () => {
 }
 
 
-const addButton = document.getElementById('add-book-button')
+
+document.addEventListener('DOMContentLoaded', () => {
 addButton.addEventListener('click', handleVisibility)
 
 submitButton.addEventListener('click', (e) => {
-	e.preventDefault()
+	
 	addBookToLibrary()
 	updateLibrary()
 	clearForm()
 	handleVisibility()
 })
 
+cancelButton.addEventListener('click', (e) => {
+	
+	handleVisibility()
+	clearForm()
+})
 
 
+if(!localStorage.getItem('library')){
+	saveOnLocalStorage()
+}else{
+	retrieveFromLocalStorage()
+}
+
+updateLibrary()
+})
