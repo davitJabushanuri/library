@@ -145,7 +145,7 @@ input[type="submit"] {
     align-items: center;
 }
 
-.book-style {
+.book-card {
     border-radius: 4px;
     width: 300px;
     height: 400px;
@@ -160,22 +160,8 @@ input[type="submit"] {
         rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 }
 
-ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    color: #4c4e61;
-    font-weight: 500;
-    font-size: 20px;
-}
-
-li {
-    min-height: 40px;
-}
-
-.delete-button {
+.delete-button,
+.read-button {
     border-radius: 0.2em;
     width: 150px;
     border: none;
@@ -188,14 +174,5 @@ li {
 }
 
 .read-button {
-    border-radius: 0.2em;
-    width: 150px;
-    border: none;
     background: rgb(84, 105, 212);
-    padding: 10px;
-    color: #f2f2f2;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-
 }

@@ -11,7 +11,16 @@ const addButton = document.getElementById('add-book-button')
 
 let myLibrary = [];
 
-const saveOnLocalStorage = () => {
+class Book {
+	constructor(title, author, pages, read) {
+		this.title = title
+		this.author = author
+		this.pages = pages
+		this.read = read
+	}
+}
+
+function saveOnLocalStorage() {
 	localStorage.setItem('library', JSON.stringify(myLibrary))
 }
 
@@ -19,12 +28,7 @@ const retrieveFromLocalStorage = () => {
 	myLibrary = JSON.parse(localStorage.getItem('library'))
 }
 
-function Book (title, author, pages, read) {
-	this.title = title
-	this.author = author
-	this.pages = pages
-	this.read = read
-}
+
 
 const addBookToLibrary = () => {
 let title = titleInput.value
@@ -35,42 +39,64 @@ let newBook = new Book(title, author, pages, read)
 myLibrary.push(newBook)
 }
 
-const getReadStatus = () =>{
-	return readCheckbox.checked ? 'read': 'Not read yet'
+const getReadStatus = () => {
+	return readCheckbox.checked ? 'Read': 'Not Read Yet'
 }
 
-const handleDelete = () => {
-	let deleteButton = document.createElement('button')
-	deleteButton.textContent = 'Delete'
-	deleteButton.classList.add('delete-button')
-	deleteButton.addEventListener('click', (e) =>{
-		console.log(e.target);
+const toggleReadStatus = (e) => {
+	e.preventDefault()
+	e.target.textContent === 'Read' ? e.target.textContent = `Not Read Yet` 
+	: e.target.textContent = `Read`
+}
+
+const handleDelete = (e) => {
+	e.preventDefault()
+	const bookElement = e.target.parentElement
+	const bookTitle = bookElement.firstChild.textContent
+	myLibrary.some(book => {
+		if(book.title === bookTitle){
+			let x = myLibrary.indexOf(book)
+			myLibrary.splice(x, 1)
+		}
 	})
-	return deleteButton
+	updateLibrary()
 }
 
 
 const updateLibrary = () => {
 bookContainer.innerHTML = ''
 myLibrary.forEach(book => {
-	let books = document.createElement('div')
-	books.innerHTML = `
-	<ul>
-		<li>${book.title}</li>
-		<li>${book.author}</li>
-		<li>${book.pages}</li>
-	</ul>
-	<button class='read-button'>${book.read}</button>`
-	books.classList.add('book-style')
-	
-	books.appendChild(handleDelete())
-	bookContainer.appendChild(books)
-	handleDelete()
+	const bookCard = document.createElement('div')
+	bookCard.classList.add('book-card')
+
+	const bookTitle = document.createElement('h3')
+	bookTitle.textContent = `${book.title}`
+	bookCard.appendChild(bookTitle)
+
+	const bookAuthor = document.createElement('h3')
+	bookAuthor.textContent = `${book.author}`
+	bookCard.appendChild(bookAuthor)
+
+	const bookPages = document.createElement('h3')
+	bookPages.textContent = `${book.pages}`
+	bookCard.append(bookPages)
+
+	const readButton = document.createElement('button')
+	readButton.textContent = `${book.read}`
+	readButton.classList.add('read-button')
+	bookCard.appendChild(readButton)
+	readButton.addEventListener('click', toggleReadStatus)
+
+	const deleteButton = document.createElement('button')
+	deleteButton.textContent = 'Delete'
+	deleteButton.classList.add('delete-button')
+	bookCard.appendChild(deleteButton)
+	deleteButton.addEventListener('click', handleDelete)
+
+	bookContainer.appendChild(bookCard)
 })
 	saveOnLocalStorage()
 }
-
-
 
 const clearForm = () => {
 	titleInput.value = ''
@@ -97,7 +123,6 @@ submitButton.addEventListener('click', (e) => {
 })
 
 cancelButton.addEventListener('click', (e) => {
-	
 	handleVisibility()
 	clearForm()
 })
